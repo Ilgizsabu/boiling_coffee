@@ -1,0 +1,20 @@
+.color-picker,
+.color-picker-new {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.color-picker button,
+.color-picker-new button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 3px solid #aaa;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  color: #fff;
+  background-color: #555;
+}
