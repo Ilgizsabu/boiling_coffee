@@ -19,16 +19,13 @@ module.exports = {
         test: /\.(?:js|mjs|cjs)$/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: [
-              ['@babel/preset-env', { targets: 'defaults' }],
-            ],
-          },
+          options: { presets: [['@babel/preset-env', { targets: 'defaults' }]] },
         },
       },
       {
-        test: /\.html$/i,
-        loader: 'html-loader',
+        test: /\.pug$/,
+        loader: 'pug-loader',
+        options: { pretty: true },
       },
       {
         test: /\.css$/i,
@@ -37,10 +34,18 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.coffee', '.js'],
+    extensions: ['.coffee', '.js', '.pug'],
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: './src/index.html',
-    scriptLoading: 'blocking',
-  }), new MiniCssExtractPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.pug',
+      scriptLoading: 'blocking',
+    }),
+    new MiniCssExtractPlugin(),
+  ],
+  devServer: {
+    open: true,
+    port: 8080,
+    static: path.resolve(__dirname, 'dist'),
+  },
 };
