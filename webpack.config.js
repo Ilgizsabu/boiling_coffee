@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './src/index.coffee',
@@ -47,5 +48,22 @@ module.exports = {
     open: true,
     port: 8080,
     static: path.resolve(__dirname, 'dist'),
+  },
+  mode: 'production',
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        test: /\.js(\?.*)?$/i,
+        uglifyOptions: {
+          compress: {
+            drop_console: true,
+          },
+          output: {
+            comments: false,
+          },
+        },
+      }),
+    ],
   },
 };
